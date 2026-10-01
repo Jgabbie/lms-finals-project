@@ -1,5 +1,5 @@
 import { Avatar, Card, CardContent, Typography, Button, Chip, Divider, Dialog, DialogActions, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField, DialogContent } from '@mui/material'
-import { Add, ForumOutlined, PersonOutlined, Search, Scheduled, SchoolOutlined, ChatBubbleOutlined } from '@mui/icons-material'
+import { Add, ForumOutlined, PersonOutlined, Search, Schedule, SchoolOutlined, ChatBubbleOutlined } from '@mui/icons-material'
 import { useState, useMemo } from 'react'
 import Navbar from '../components/Navbar'
 
@@ -235,7 +235,7 @@ export default function DiscussionPage() {
                                                     </div>
 
                                                     <div className='flex items-center gap-1 text-slate-400 whitespace-nowrap'>
-                                                        <Scheduled fontSize='small' />
+                                                        <Schedule fontSize='small' />
                                                         <Typography variant='caption' >
                                                             {discussion.createdAt}
                                                         </Typography>

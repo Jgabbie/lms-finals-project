@@ -1,10 +1,14 @@
 import { TextField, Button, Checkbox, FormControlLabel, Typography, Link, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material'
 import { VisibilityOff, Visibility } from '@mui/icons-material'
 import { useState } from 'react'
+import axios from 'axios'
 
-export default function LoginPage() {
+export default function LoginPage({ onLogin }) {
 
     const [showPassword, setShowPassword] = useState(false)
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
     const [notification, setNotification] = useState({
         open: false,
@@ -29,9 +33,16 @@ export default function LoginPage() {
     }
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        showNotification("Successfully Logged In", "success")
+        try {
+            const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+            localStorage.setItem('token', res.data.token);
+            localStorage.setItem('role', res.data.role);
+            onLogin(res.data.role);
+        } catch {
+            setError("Invalid Email or Password");
+        }
     }
 
     return (
@@ -56,7 +67,7 @@ export default function LoginPage() {
                     </div>
 
                     <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
-                        <TextField label="Email Address" type='email' variant='outlined' fullWidth required />
+                        <TextField label="Email Address" type='email' variant='outlined' fullWidth required value={email} onChange={(e) => setEmail(e.target.value)} />
                         <TextField
                             label="Password"
                             type={showPassword ? "text" : "password"}
@@ -74,6 +85,8 @@ export default function LoginPage() {
                                     )
                                 }
                             }}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
 
                         <div className='flex items-center justify-between -mt-2'>
