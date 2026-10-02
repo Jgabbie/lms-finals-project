@@ -8,7 +8,7 @@ export default function Dashboard() {
     const statistics = [
         {
             title: "Total Students",
-            value: "1,240",
+            value: "1,267",
             change: "+14.2%",
             description: "from last month",
             icon: <People />,
